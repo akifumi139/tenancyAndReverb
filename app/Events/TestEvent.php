@@ -14,13 +14,15 @@ class TestEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $id;
     public $message;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($text)
+    public function __construct($id,$text)
     {
+        $this->id =$id;
         $this->message =$text;
     }
 
@@ -32,7 +34,7 @@ class TestEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('test-channel'),
+            new PrivateChannel('test-channel.'.$this->id),
         ];
     }
 }

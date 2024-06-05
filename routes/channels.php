@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Log;
 
-Broadcast::channel('test-channel', function (){
-    return Auth::check(); 
+
+
+
+Broadcast::channel('test-channel.{tenat}', function ($user,$tenant){
+    return Auth::check() && Session::get('tenant') ==$tenant;
 });
